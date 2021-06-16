@@ -2,9 +2,29 @@
   margin: 0;
 }
 
-body {
-  width: 80vw;
-  text-align: center;
-  margin: auto;
+/* body {
 
+} */
+
+
+.earn-statement{
+  text-align: center;
+  
+}
+
+.start-btn{
+  font-size: 2vw;
+}
+
+.earn-dollars{
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  /* text-align: center;
+  font-size: 10vw; */
+}
+.inner-earn-dollars{
+  text-align: center;
+  font-size: 10vw;
 }
