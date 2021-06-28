@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <!-- WEBSITE TITLE -->
-    <title>My Website</title>
+    <title>Housing Is Key Calculator</title>
+    <link rel="shortcut icon" href="./assets/favicon.ico">
 
     <!-- WEBSITE DESCRIPTION -->
     <meta name="description" content="This is my cool website!" />
@@ -29,12 +30,46 @@
     <!-- CSS STYLE LINK -->
     <link rel="stylesheet" href="./styles/main.css" />
 
+    <!-- MAPBOX -->
+    <script src='https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.js'></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.css' rel='stylesheet' />    
   </head>
   <body>
 
+
     <div class="container">
-      <!-- Content here -->
-      <div class="card">
+
+      <!-- Location Here -->
+      <div id="map-div" class="card">
+        <div class="card-header">
+          <div class="header-wrapper">
+
+          </div>
+          <div>
+            <img src="./assets/logo-transparent.png" id="logo" alt="">
+          </div>
+          <h2 class="card-title">Eviction Support Calculator</h2>
+          <h6 class="card-subtitle mb-2 text-muted">Please select your location so we can determine eligibility</h6>
+        </div>
+
+        
+        <div id='map'></div>
+        <script>
+          mapboxgl.accessToken = 'pk.eyJ1IjoiY2Fob3VzaW5nIiwiYSI6ImNrcWd6cHJpbTFobGwyeG52amNxYXl6cTQifQ.fwhEg-7LcyxLg0kl9cSEWw';
+          var map = new mapboxgl.Map({
+            container: 'map',
+            style: 'mapbox://styles/mapbox/streets-v11'
+          });
+        </script>
+        
+  
+  
+  
+      </div>
+
+
+      <!-- Calculator here -->
+      <div id="calculator-div" class="card">
         <div class="card-header">
           <div class="progress">
             <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
