@@ -39,8 +39,25 @@
   display: none;
 } 
 
-#map-div{
+#locator-div{
+  
+}
 
+#selection-div{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
+#map-div{
+  height: 100%;
+  width: 60%;
+  float: right;
+}
+#search-div{
+  height: 100%;
+  width: 40%;
+  float: left;
 }
 
 #logo{
@@ -53,6 +70,17 @@
   display: flex; /* or inline-flex */
   flex-direction: row;
 }
+
+
+
+/* Search */
+.search-input{
+  width: 80%;
+  display: inline;
+}
+.search-btn{
+}
+
 
 @media only screen and (max-width: 600px) {
   #logo{
