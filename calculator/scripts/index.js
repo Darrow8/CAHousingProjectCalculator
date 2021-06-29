@@ -1,16 +1,18 @@
 
-let userLoc = {}; // ex: {latitude: 123, longitude:123}
+let userLoc = {}; // ex: {latitude: 123, longitude:123, common_name:'1234 Orange Grove Ave'}
 var map;// the map
+let mapboxAPI = 'pk.eyJ1IjoiY2Fob3VzaW5nIiwiYSI6ImNrcWd6cHJpbTFobGwyeG52amNxYXl6cTQifQ.fwhEg-7LcyxLg0kl9cSEWw';
 
 
 /**
  * Called once page has loaded
  */
 window.onload = function() {
-    // get position
     initMap();
-    getLocation();
-    // onClickMap()
+    // setLayers();
+    // getLocation();
+    // autocomplete(document.getElementById("map-input"));
+
   };
 
 /**
@@ -25,19 +27,25 @@ function getLocation() {
     }
 }
   
-function showPosition(position) {
+async function showPosition(position) {
     userLoc.latitude = position.coords.latitude;
     userLoc.longitude = position.coords.longitude;
     console.log("Latitude: " + position.coords.latitude +
     " Longitude: " + position.coords.longitude);
-
+  addMarker(userLoc.latitude,userLoc.longitude);
+  await convertCordToAddress(userLoc.latitude,userLoc.longitude).then((addr)=>{
+    // have addr
+    console.log(addr);
+    userLoc.common_name = addr['place_name'];
+    document.getElementById("map-input")['value'] = userLoc.common_name;
+  })
 }
 
 /**
  * Initialize Mapbox map
  */
 function initMap(){
-    mapboxgl.accessToken = 'pk.eyJ1IjoiY2Fob3VzaW5nIiwiYSI6ImNrcWd6cHJpbTFobGwyeG52amNxYXl6cTQifQ.fwhEg-7LcyxLg0kl9cSEWw';
+    mapboxgl.accessToken = mapboxAPI;
     map = new mapboxgl.Map({
       container: 'map',
       style: 'mapbox://styles/mapbox/streets-v11',
@@ -45,10 +53,20 @@ function initMap(){
       center: [-119.417931, 36.778259]
     });
 
-    var marker = new mapboxgl.Marker() // initialize a new marker
-  .setLngLat([-122.25948, 37.87221]) // Marker [lng, lat] coordinates
+}
+
+
+
+function addMarker(lat,lng){
+  console.log('here!')
+  var marker = new mapboxgl.Marker() // initialize a new marker
+  .setLngLat([lng, lat]) // Marker [lng, lat] coordinates
   .addTo(map); // Add the marker to the map
 }
+
+
+
+
 
 /**
  * Click detection for map
@@ -77,3 +95,5 @@ function onClickMap(){
         });
 }
 
+
+// function setLayers()

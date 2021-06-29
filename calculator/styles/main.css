@@ -75,9 +75,16 @@
 
 /* Search */
 .search-input{
-  width: 80%;
+  width: 95%;
   display: inline;
+  margin: auto;
+  text-align: center;
 }
+
+.form-inline{
+  text-align: center;
+}
+
 .search-btn{
 }
 
@@ -89,3 +96,4 @@
   
   }
 }
+
