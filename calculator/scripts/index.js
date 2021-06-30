@@ -7,12 +7,11 @@ let mapboxAPI = 'pk.eyJ1IjoiY2Fob3VzaW5nIiwiYSI6ImNrcWd6cHJpbTFobGwyeG52amNxYXl6
 /**
  * Called once page has loaded
  */
-window.onload = function() {
+window.onload = async function() {
     initMap();
-    // setLayers();
+    setLayers();
     // getLocation();
     // autocomplete(document.getElementById("map-input"));
-
   };
 
 /**
@@ -96,4 +95,33 @@ function onClickMap(){
 }
 
 
-// function setLayers()
+async function setLayers(){
+  // for()
+  map.on('load', async function () {
+
+    console.log(countyData);
+
+    let countyNames = (Object.keys(countyData));
+    for(let i =0; i < countyNames.length; i++){
+      await getBoundaries(countyNames[i]).then((ret)=>{
+        console.log(ret['features'][0]);
+        // new layer
+        map.addSource(countyNames[i], { 'type': 'geojson', 'data': ret['features'][0] })
+  
+        let layer = {
+          'id':countyNames[i],
+          'type':'fill',
+          'source': countyNames[i],
+          'paint': 
+          {
+            'fill-color': '#ffffff'
+          }
+        }
+        map.addLayer(layer);
+  
+  
+      })
+    }
+     
+  })
+}
