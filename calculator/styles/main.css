@@ -13,7 +13,7 @@
 }
 
 .start-btn{
-  font-size: 2vw;
+  /* font-size: 2vw; */
 }
 
 .earn-dollars{
@@ -26,7 +26,7 @@
 }
 .inner-earn-dollars{
   text-align: center;
-  font-size: 10vw;
+  font-size: 8vw;
 }
 
 
@@ -36,11 +36,11 @@
 }
 
 #calculator-div{
-  display: none;
+  /* display: none; */
 } 
 
 #locator-div{
-  
+  display: none;
 }
 
 #selection-div{
@@ -97,3 +97,41 @@
   }
 }
 
+
+
+.question{
+  text-align: center;
+  height: 80vh;
+}
+
+.currency {
+  padding-left:12px;
+  width: 40%;
+
+}
+
+.currency-symbol {
+  position:absolute;
+  padding: 2px 5px;
+  margin-top: 1px;
+}
+
+
+.question .card{
+
+}
+
+.question .card .card-header{
+
+  padding: 20px;
+
+}
+.main-cost{
+  padding: 10px;
+}
+
+
+.util-opt{
+  width: 100%;
+
+}

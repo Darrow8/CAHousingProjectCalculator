@@ -87,23 +87,167 @@
         </div>
         <div class="card-body">
           <!-- First Page with big numbers -->
-          <div>
           <!-- Big numbers current range -->
-          <h1 class="earn-statement">Recieve Between</h1>
-          <div class="earn-dollars">
-            <div class="inner-earn-dollars">
-              <span>$300</span>
-              <span> - </span>
-              <span>$1000</span>
+          
+
+          <div class="question">
+            <div class="card" id="q1">
+              <div class="card-header">
+                <h3 class="card-title">Are You Applying for Rent or Rent and Utilities?</h3>
+              </div>
+              <div class="card-body">
+                  <div>
+                    <button onclick="rent()" type="button" class="btn btn-primary">Only Rent</button>
+                    <button onclick="rentAndUtils()" type="button" class="btn btn-primary">Rent + Utilities</button>
+                  </div>
+              </div>
             </div>
-          </div>
-          </div>
-          <h3 class="earn-statement">From filling out the Housing Is Key form</h3>
-          <div class="earn-statement">
-            <button type="button" class="btn btn-primary btn-lg start-btn">Start Now!</button>
+  
+            <div class="card" id="qb-2">
+              <div class="card-header">
+              <h3 class="card-title">Which Utilities Do You Need Coverage For?</h3>
+              </div>
+              <div class="card-body">
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <div class="input-group-text">
+                      <input id="water-check" type="checkbox" aria-label="Checkbox for following text input">
+                    </div>
+                  </div>
+                  <p>Water</p>
+                </div>
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <div class="input-group-text">
+                      <input id="gas-check" type="checkbox" aria-label="Checkbox for following text input">
+                    </div>
+                  </div>
+                  <p>Gas</p>
+                </div>
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <div class="input-group-text">
+                      <input id="electric-check" type="checkbox" aria-label="Checkbox for following text input">
+                    </div>
+                  </div>
+                  <p>Electric</p>
+                </div>
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <div class="input-group-text">
+                      <input id="sewage-check" type="checkbox" aria-label="Checkbox for following text input">
+                    </div>
+                  </div>
+                  <p>Sewage</p>
+                </div>
+
+
+                <button onclick="enteredUtils()" type="button" class="btn btn-primary">Continue</button>
+
+              </div>
+            </div>
+
+          <div class="card" id="qa-2">
+            <div class="card-header">
+              <h3 class="card-title">What is Your Monthly Rent?</h3>
+            </div>
+            <div class="card-body">
+              <div class="main-cost">
+                <span class='currency-symbol'>$</span>
+                <input id="main-costs" type="number" class="currency" min="0.00" max="25000.00" value="0.00" />
+              </div>
+              <br>
+              <div id="other" class="card">
+                <div class="card-header">
+                  <h5 class="card-title">Other costs</h5>
+                </div>
+                <div class="card-body">
+                  <div class="util-opt" id="sewage">
+                    <span>For Sewage</span>
+                    <span class='currency-symbol'>$</span>
+                    <input id="sewage-costs" type="number" class="currency" min="0.00" max="25000.00" value="0.00" />  
+                  </div>
+                  <div class="util-opt" id="water">
+                    <span>For Water</span>
+                    <span class='currency-symbol'>$</span>
+                    <input id="water-costs" type="number" class="currency" min="0.00" max="25000.00" value="0.00" />  
+                  </div>
+                  <div class="util-opt" id="gas">
+                    <span>For Gas</span>
+                    <span class='currency-symbol'>$</span>
+                    <input id="gas-costs" type="number" class="currency" min="0.00" max="25000.00" value="0.00" />  
+                  </div>
+                  <div class="util-opt" id="electric">
+                    <span>For Electric</span>
+                    <span class='currency-symbol'>$</span>
+                    <input id="electric-costs" type="number" class="currency" min="0.00" max="25000.00" value="0.00" />  
+
+                  </div>
+                </div>
+              </div>  
+            </div>
+              
+            <button onclick="addedCosts()" type="button" class="btn btn-primary">Continue</button>
           </div>
 
+          <div id="q3">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">How many months do you owe?</h3>
+  
+              </div>
+              <div class="card-body">
+                  <select id="mo" class="custom-select">
+                    <option selected>Months Owed</option>
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                    <option value="4">Four</option>
+                    <option value="5">Five</option>
+                    <option value="6">Six</option>
+                  </select>
+            </div>
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">How many months forward do you need?</h3>
+
+              </div>
+              <div class="card-body">
+                <select id="mf" class="custom-select">
+                  <option selected>Months Forward</option>
+                  <option value="1">One</option>
+                  <option value="2">Two</option>
+                  <option value="3">Three</option>
+                  <option value="4">Four</option>
+                  <option value="5">Five</option>
+                  <option value="6">Six</option>
+                </select>
+              </div>
+            </div>
+            </div>
+            <button onclick="addedTime()" type="button" class="btn btn-primary">Continue</button>
+
+          </div>
+          
+
+          <div  id="call-to-action">
+            <h1 class="earn-statement">Recieve Between</h1>
+            <div class="earn-dollars">
+                <div class="inner-earn-dollars">
+                  <span id="low-end">$300</span>
+                  <span> - </span>
+                  <span id="high-end">$1000</span>
+                </div>
+              </div>
+              <h3 class="earn-statement">From filling out the Housing Is Key form</h3>
+              <div class="earn-statement">
+                <button onclick="window.open('https://hornellp-ca.neighborlysoftware.com/CaliforniaCovid19RentRelief/Participant')" type="button" class="btn btn-primary btn-lg start-btn">Start Now!</button>
+              </div>
+            
+            </div>
+          </div>
         </div>
+
       </div>
     </div>
     <script src="./scripts/autocomplete.js"></script>
