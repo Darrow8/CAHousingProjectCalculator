@@ -1,22 +1,23 @@
 // initial version from https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_autocomplete
 async function autocomplete(inp) {
-    console.log(inp)
+    //console.log(inp)
     /*the autocomplete function takes two arguments,
     the text field element and an array of possible autocompleted values:*/
     var currentFocus;
     let searchKey = inp.value;
-    console.log(searchKey)
+    //console.log(searchKey)
     /*execute a function when someone writes in the text field:*/
     inp.addEventListener("input", async function(e) {
+      //console.log('here!')
 
-        console.log(e);
+        //console.log(e);
         searchKey = inp.value;
 
         await getItems(searchKey).then((words)=>{
-            console.log(words)
+            //console.log(words)
             //convert words
             let arr = words.map(word => word['description'])
-            console.log(arr)
+            //console.log(arr)
 
             var a, b, i, val = this.value;
             /*close any already open lists of autocompleted values*/
@@ -31,7 +32,7 @@ async function autocomplete(inp) {
             this.parentNode.appendChild(a);
             /*for each item in the array...*/
             // let arr = await getItems(searchKey);
-            console.log(arr);
+            //console.log(arr);
             for (i = 0; i < arr.length; i++) {
               /*check if the item starts with the same letters as the text field value:*/
               if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
@@ -46,6 +47,10 @@ async function autocomplete(inp) {
                 b.addEventListener("click", function(e) {
                     /*insert the value for the autocomplete text field:*/
                     inp.value = this.getElementsByTagName("input")[0].value;
+                    //console.log('CLICKED HERE!')
+                    // //console.log(inp.value)
+                    fromAddrToMap(inp.value)
+
                     /*close the list of autocompleted values,
                     (or any other open lists of autocompleted values:*/
                     closeAllLists();
@@ -110,6 +115,8 @@ async function autocomplete(inp) {
     }
     /*execute a function when someone clicks in the document:*/
     document.addEventListener("click", function (e) {
+      //console.log('CLICKED HERE2!')
+      // addMarker()
         closeAllLists(e.target);
     })
 }
@@ -147,7 +154,7 @@ async function autocomplete(inp) {
         {
           return response.json()
         }).then((res)=>{
-          console.log(res);
+          //console.log(res);
           res['predictions'].forEach( (place) =>  { guesses.push(place); } );
         })
         .catch((err) => { console.error(err); } )

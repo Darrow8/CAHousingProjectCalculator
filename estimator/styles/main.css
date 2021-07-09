@@ -29,18 +29,52 @@
   font-size: 8vw;
 }
 
+.full-head{
+  display: flex;
+  margin-left: auto;
+  flex-direction: column;
+
+}
+
+.loc-btn{
+  float: right;
+  /* position: relative; */
+  width: 13vw;
+  height: 7vh;
+  display: inline;
+}
+
+.stitle{
+  display: inline;
+
+}
 
 #map{
   width: 100%;
   height: 70vh;
 }
 
-#calculator-div{
-  /* display: none; */
+#estimator-div{
+  display: none;
+  width: 100%;
+
 } 
 
 #locator-div{
   display: none;
+  width: 100%;
+}
+.translate{
+
+}
+
+.mobile-search{
+  display: none;
+}
+
+#select-language-div{
+  display: none;
+  width: 100%;
 }
 
 #selection-div{
@@ -133,5 +167,13 @@
 
 .util-opt{
   width: 100%;
+
+}
+
+@media only screen and (max-width: 600px) {
+  /* body {
+    background-color: lightblue;
+  } */
+
 
 }
