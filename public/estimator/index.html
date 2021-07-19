@@ -13,7 +13,7 @@
     <meta name="description" content="Housing Is Key Estimator" />
 
     <!-- FAVICON -->
-    <link rel="shortcut icon" type="image/jpg" href="/path/to/your/favicon/" />
+    <link rel="shortcut icon" type="image/jpg" href="./assets/favicon.ico" />
 
     <!-- GOOGLE FONTS -->
     <link rel="preconnect" href="https://fonts.gstatic.com" />
@@ -37,7 +37,7 @@
     <link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.0/mapbox-gl-geocoder.css' type='text/css' />
     <script type="text/javascript" src=
     "https://translate.google.com/translate_a/element.js?
-            cb=googleTranslateElementInit">
+            cb=googleTranslateElement">
         </script> 
   </head>
   <body>
@@ -50,12 +50,47 @@
             <img src="./assets/logo-transparent.png" id="logo" alt="">
           </div>
           <div class="full-head">
-            <h2 class="card-title">Eviction Support Estimator</h2>
-            <h6 class="card-subtitle mb-2 text-muted stitle">Please select your language to continue</h6>  
+            <h2 class="card-title">Rent and Utilities Assistance Estimator</h2>
+            <h6 class="card-subtitle mb-2 text-muted stitle">Are you behind on rent or utilities? If so, please enter your location to determine your qualification.</h6>  
           </div>
         </div>
         <div class="card-body">
-          <h3>Select Your Language</h3>
+          <h3>Select Your Language:</h3>
+          <div id="google_translate_element"></div>
+          <button onclick="continueLang()" type="button" class="btn btn-primary lang-btn">Continue</button>
+          <!-- <div>
+            <button onclick="selectLang('eng')" type="button" class="btn btn-primary lang-btn">English</button>
+            <button onclick="selectLang('chn')" type="button" class="btn btn-primary lang-btn">汉语</button>
+            <button onclick="selectLang('esp')" type="button" class="btn btn-primary lang-btn">Español</button>
+            <button onclick="selectLang('kor')" type="button" class="btn btn-primary lang-btn">한국어</button>
+            <button onclick="selectLang('viet')" type="button" class="btn btn-primary lang-btn">Tiếng Việt (㗂越) </button>
+            <button onclick="selectLang('tag')" type="button" class="btn btn-primary lang-btn">Tagalog</button>
+          </div> -->
+
+
+
+          <!-- <div id="google_translate_element"></div> -->
+          <!-- <div class="card lang-card">
+            <div class="card-header">
+              <h2 class="card-title">English</h2>
+            </div>
+          </div>
+
+          <div class="card lang-card">
+            <div class="card-header">
+              <h2 class="card-title">Español</h2>
+            </div>
+          </div>
+
+
+          <div class="card lang-card">
+            <div class="card-header">
+              <h2 class="card-title">中文</h2>
+            </div>
+          </div> -->
+
+
+
         </div>
       </div>
 
@@ -65,14 +100,14 @@
           <!-- <div class="header-wrapper">
 
           </div> -->
-          <div>
+          <div >
             <img src="./assets/logo-transparent.png" id="logo" alt="">
             <div id="google_translate_element"></div>
 
           </div>
           <div class="full-head">
-            <h2 class="card-title">Eviction Support Estimator</h2>
-            <h6 class="card-subtitle mb-2 text-muted stitle">Please select your location so we can determine eligibility</h6>  
+            <h2 class="card-title">Rent and Utilities Assistance Estimator</h2>
+            <h6 class="card-subtitle mb-2 text-muted stitle">Please select or enter your location so we can determine eligibility</h6>  
 
           </div>
         </div>
@@ -97,7 +132,7 @@
           <!-- From https://getbootstrap.com/docs/4.0/components/navbar/ -->
           <form autocomplete="off" class="form-inline my-2 my-lg-0">
             <div class="autocomplete">
-              <input id="map-input" class="form-control mr-sm-2 search-input" placeholder="Your Location" type="search" placeholder="Search" aria-label="Search">
+              <input id="map-input1" class="form-control mr-sm-2 search-input" placeholder="Your Location" type="search" placeholder="Search" aria-label="Search">
             </div>
           </form>
 
@@ -110,21 +145,25 @@
       <!-- Estimator here -->
       <div id="estimator-div" class="card">
         <div class="card-header">
-          <div>
-            <img src="./assets/logo-transparent.png" id="logo" alt="">
-            <div class="translate" id="google_translate_element"></div>
+          <div class="top-header">
+            <img id="logo-img" src="./assets/logo-transparent.png" id="logo" alt="">
+            <div id="google_translate_element"></div>
 
           </div>
           <div class="progress">
             <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
           </div>
-          <h2 class="card-title">Eviction Support Estimator</h2>
-          <h6 class="card-subtitle mb-2 text-muted">Quickly determine how much you can recieve from the Housing Is Key initiative.</h6>
+          <h2 class="card-title">Rent and Utilities Assistance Estimator</h2>
+          <h6 class="card-subtitle mb-2 text-muted">Quickly determine how much you can recieve from the state rental assistance program.</h6>
         </div>
         <div class="card-body">
           <!-- First Page with big numbers -->
           <!-- Big numbers current range -->
           <div class="question">
+            <div class="back-btn">
+              <button onclick="back()" id="back" type="button" class="btn btn-primary back">Back</button>
+
+            </div>
             <div class="card" id="q1">
               <div class="card-header">
                 <h3 class="card-title">Are You Applying for Rent or Rent and Utilities?</h3>
@@ -175,6 +214,14 @@
                   <p>Sewage</p>
                 </div>
 
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <div class="input-group-text">
+                      <input id="other-check" type="checkbox" aria-label="Checkbox for following text input">
+                    </div>
+                  </div>
+                  <p>Other</p>
+                </div>
 
                 <button onclick="enteredUtils()" type="button" class="btn btn-primary">Continue</button>
 
@@ -188,35 +235,39 @@
             <div class="card-body">
               <div class="main-cost">
                 <span class='currency-symbol'>$</span>
-                <input id="main-costs" type="number" class="currency" min="0.00" max="25000.00" value="0.00" />
+                <input id="main-costs" type="number" class="currency" min="10.00" max="25000.00" value="10.00" />
               </div>
               <br>
-              <div id="other" class="card">
+              <div id="other-total" class="card">
                 <div class="card-header">
-                  <h5 class="card-title">Other costs</h5>
+                  <h5 class="card-title">What are you Average Other Costs</h5>
                 </div>
                 <div class="card-body">
                   <div class="util-opt" id="sewage">
                     <span>For Sewage</span>
                     <span class='currency-symbol'>$</span>
-                    <input id="sewage-costs" type="number" class="currency" min="0.00" max="25000.00" value="0.00" />  
+                    <input id="sewage-costs" type="number" class="currency" min="10.00" max="25000.00" value="10.00" />  
                   </div>
                   <div class="util-opt" id="water">
                     <span>For Water</span>
                     <span class='currency-symbol'>$</span>
-                    <input id="water-costs" type="number" class="currency" min="0.00" max="25000.00" value="0.00" />  
+                    <input id="water-costs" type="number" class="currency" min="10.00" max="25000.00" value="10.00" />  
                   </div>
                   <div class="util-opt" id="gas">
                     <span>For Gas</span>
                     <span class='currency-symbol'>$</span>
-                    <input id="gas-costs" type="number" class="currency" min="0.00" max="25000.00" value="0.00" />  
+                    <input id="gas-costs" type="number" class="currency" min="10.00" max="25000.00" value="10.00" />  
                   </div>
                   <div class="util-opt" id="electric">
                     <span>For Electric</span>
                     <span class='currency-symbol'>$</span>
-                    <input id="electric-costs" type="number" class="currency" min="0.00" max="25000.00" value="0.00" />  
-
+                    <input id="electric-costs" type="number" class="currency" min="10.00" max="25000.00" value="10.00" />  
                   </div>
+                  <div class="util-opt" id="other">
+                    <span>For Other</span>
+                    <span class='currency-symbol'>$</span>
+                    <input id="other-costs" type="number" class="currency" min="10.00" max="25000.00" value="10.00" />  
+                  </div>                  
                 </div>
               </div>  
             </div>
@@ -239,6 +290,12 @@
                     <option value="4">Four</option>
                     <option value="5">Five</option>
                     <option value="6">Six</option>
+                    <option value="7">Seven</option>
+                    <option value="8">Eight</option>
+                    <option value="9">Nine</option>
+                    <option value="10">Ten</option>
+                    <option value="11">Eleven</option>
+                    <option value="12">Twelve</option>
                   </select>
             </div>
             <div class="card">
@@ -275,15 +332,40 @@
               </div>
               <h3 class="earn-statement">From filling out the Housing Is Key form</h3>
               <div class="earn-statement">
-                <button onclick="goToLink()" type="button" class="btn btn-primary btn-lg start-btn">Start Now!</button>
+                <button  id='start' type="button" class="btn btn-primary btn-lg start-btn">Start Now!</button>
               </div>
             
             </div>
           </div>
         </div>
+      <!-- Trigger/Open The Modal -->
+      <!-- <button id="myBtn">Open Modal</button> -->
+
+      <!-- The Modal -->
+      <div id="myModal" class="tmodal">
+
+        <!-- Modal content -->
+        <div class="modal-content">
+          <span class="close">&times;</span>
+          <h3>Options:</h3>
+          <div id="adder">
+          </div>
+
+        </div>
+
+      </div>
+
+
+
+
 
       </div>
     </div>
+
+
+
+
+
     <script src="./scripts/translation.js"></script>
     <script src="./scripts/autocomplete.js"></script>
     <script src="./scripts/index.js"></script>
@@ -296,9 +378,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.8.0/jszip.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.8.0/xlsx.js"></script>
 <!-- Google translate -->
-<script type="text/javascript" src=
+<!-- <script type="text/javascript" src=
 "https://translate.google.com/translate_a/element.js?
         cb=googleTranslateElementInit">
-    </script> 
+    </script>  -->
   </body>
 </html>

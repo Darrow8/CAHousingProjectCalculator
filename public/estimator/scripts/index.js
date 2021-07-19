@@ -26,13 +26,17 @@ let sewage = document.getElementById('sewage');
 let water = document.getElementById('water');
 let gas = document.getElementById('gas');
 let electric = document.getElementById('electric');
-let div = document.getElementById('other');
+let other = document.getElementById('other');
+let backBtn = document.getElementById('back');
+
+let div = document.getElementById('other-total');
 
 // checkboxes
 let sewageC = document.getElementById('sewage-check');
 let waterC = document.getElementById('water-check');
 let gasC = document.getElementById('gas-check');
 let electricC = document.getElementById('electric-check');
+let otherC = document.getElementById('other-check');
 
 //costs
 let mainCost = document.getElementById('main-costs');
@@ -40,6 +44,7 @@ let sewageCost = document.getElementById('sewage-costs');
 let waterCost = document.getElementById('water-costs');
 let gasCost = document.getElementById('gas-costs');
 let electricCost = document.getElementById('electric-costs');
+let otherCost = document.getElementById('other-costs');
 
 
 //select
@@ -61,17 +66,9 @@ let langDiv = document.getElementById('select-language-div'); // the language se
  * Called once page has loaded
  */
 window.onload = async function() {
-  googleTranslateElementInit();
-  setSection('location')
-  // MAP CODE
-    initMap();
-    setLayers();
-    getLocation();
-    autocomplete(document.getElementById("map-input"));
-    await onClickMap();
-  // CALC CODE
-  questionProcess()
-  // updateBar(0)
+  googleTranslateElement('uk');
+  setSection('language')
+
   };
 
 
@@ -239,15 +236,42 @@ async function setLayers(){
     //   await getBoundaries(countyNames[i]).then((ret)=>{
     //     //console.log(ret['features'][0]);
     let ret = allCountyJSON[i]
+     let ret2 = countyLinksJSON;
+     let isNeighborly = false;
     //     // new layer
         map.addSource(Object.keys(countyData)[i], { 'type': 'geojson', 'data': ret['features'][0] })
         //console.log(countyData[Object.keys(countyData)[i]])
-        let fill = '#ffffff'
-        if(countyData[Object.keys(countyData)[i]] == true){
-          fill = '#46eb34'
+        let firstOne = ''
+        let isFirstOne = true;
+        for(let j =0; j < ret2[0].length; j++){
+          if(typeof ret2[0][j]['County_name'] === 'string'){
+            if(ret2[0][j]['County_name'].toLowerCase() == Object.keys(countyData)[i].toLowerCase()){
+              console.log(ret2[0][j])
+              if(ret2[0][j]['Jurisdiction_URL'] == 'https://housing.ca.gov/eligibilityquiz.html'){
+                isNeighborly = true;
+              }else{
+                isNeighborly = false;
+  
+              }
+              if(firstOne == ''){
+                firstOne = ret2[0][j]['Jurisdiction_URL'];
+                isFirstOne = true;
+              }else{
+                if(firstOne != ret2[0][j]['Jurisdiction_URL']){
+                  isFirstOne = false;
+                }
+              }
+  
+            }
+          }
         }
-        if(countyData[Object.keys(countyData)[i]].length != undefined){
-          if(countyData[Object.keys(countyData)[i]][0] === true){
+
+
+        let fill = '#ffffff'
+        if(isNeighborly == true){
+          fill = '#46eb34'
+        }else{
+          if(isFirstOne){
             fill = '#824824'
           }else{
             fill = '#eb8f34'
@@ -268,6 +292,7 @@ async function setLayers(){
           }
         }
         map.addLayer(layer);
+        
   
   
     //   })
@@ -292,10 +317,14 @@ function questionProcess(){
   water.setAttribute('style','display:none;')
   gas.setAttribute('style','display:none;')
   electric.setAttribute('style','display:none;')
+  other.setAttribute('style','display:none;')
+  backBtn.setAttribute('style','display:none;')
+
   sewage.setAttribute('style','display:none;')
 
   // step one
   q1.setAttribute('style','display:inline-block;')
+  currentPage = 'q1'
 
 }
 
@@ -305,6 +334,9 @@ function rent(){
   q1.setAttribute('style','display:none;')
   qa2.setAttribute('style','display:inline-block;')
   div.setAttribute('style','display:none;')
+  backBtn.setAttribute('style','display:inline-block;')
+
+  currentPage = 'qa2'
   updateBar(20)
 
 
@@ -314,6 +346,9 @@ function rentAndUtils(){
   needsUtilities = true;
   q1.setAttribute('style','display:none;')
   qb2.setAttribute('style','display:inline-block;')
+  backBtn.setAttribute('style','display:inline-block;')
+
+  currentPage = 'qb2'
   updateBar(10)
 
 
@@ -346,7 +381,15 @@ function enteredUtils(){
   }else if(!electricC.checked && utilities.includes('electric')){
       utilities.splice(utilities.indexOf('electric'),1)
   }
-  //console.log(utilities)
+  
+  if(otherC.checked && !utilities.includes('other')){
+    utilities.push('other')
+  }else if(!otherC.checked && utilities.includes('other')){
+      utilities.splice(utilities.indexOf('other'),1)
+  }
+  
+
+  console.log(utilities)
   // go to next page
   qb2.setAttribute('style','display:none;')
   qa2.setAttribute('style','display:inline-block;')
@@ -368,6 +411,13 @@ function enteredUtils(){
 
   }else{
     electric.setAttribute('style','display:none;')
+
+  }
+  if(utilities.includes('other')){
+    other.setAttribute('style','display:inline-block;')
+
+  }else{
+    other.setAttribute('style','display:none;')
 
   }
   if(utilities.includes('sewage')){
@@ -410,9 +460,16 @@ function addedCosts(){
     utilitiesCost += parseInt(electricCost.value)
 
   }
+  if(utilities.includes('other')){
+    utilitiesCost += parseInt(otherCost.value)
+
+  }
+  console.log(otherCost.value)
+  console.log(utilitiesCost)
   // go to next page
   qa2.setAttribute('style','display:none;')
   q3.setAttribute('style','display:inline-block;')
+  currentPage = 'q3'
 
   updateBar(70)
 }
@@ -429,6 +486,7 @@ function addedTime(){
   // go to next page
   q3.setAttribute('style','display:none;')
   cta.setAttribute('style','display:inline-block;')
+  currentPage = 'cta'
   updateBar(100)
 
 }
@@ -474,6 +532,7 @@ function toCalc(){
 }
 
 let link = '';
+let adder = document.getElementById('adder')
 /**
  * Show where to go
  */
@@ -481,31 +540,111 @@ function goToLink(){
   console.log(countySelected);
   console.log(countyLinksJSON);
   console.log(countyLinksJSON[0].length)
+  let allLinks = [];
+  let linkname = []
+
+
   for (let i = 0; i < countyLinksJSON[0].length; i++) {
     const county = countyLinksJSON[0][i];
     try{
         if(county['County_name'].toLowerCase() == countySelected.toLowerCase()){
-          link = county['Jurisdiction_URL'];
 
-          // console.log('correct county!');
-          // console.log(county['County_name'].toLowerCase())
+          allLinks.push(county['Jurisdiction_URL']);
+          linkname.push(county['JURIS_NAME']);
+          console.log('correct county!');
+          console.log(county['County_name'].toLowerCase())
+          console.log(county['Jurisdiction_URL'])
         }
     }catch(err){
       console.log('bad`')
     }
   }
+  
+  allLinks = allLinks.filter (function (value, index, array) { 
+    return array.indexOf (value) == index;
+  });
+  linkname = linkname.filter (function (value, index, array) { 
+    return array.indexOf (value) == index;
+  });
 
-  window.open(link);
+  if(allLinks.length == 0){
+    allLinks.push('https://hornellp-ca.neighborlysoftware.com/CaliforniaCovid19RentRelief/Participant')
+    el2.push('neighborlysoftware')
+  }
+
+  console.log(allLinks)
+  for (let i = 0; i < allLinks.length; i++) {
+    const element = allLinks[i];
+    let el2 = linkname[i]
+    console.log(element)
+    adder.innerHTML += `<a href="${element}">${el2}</a>`
+    adder.innerHTML +=`<br>`
+
+    
+  }
+
+
+
+
+  // window.open(link);
 }
 
+let currentPage = '';
+function back(){
+  rentCost = 0;
+  utilities = [];
+  utilitiesCost = 1;
+  if(currentPage == 'q1'){
+    q1.setAttribute('style','display:none;')
+    setSection('location')
+    updateBar(0)
+  }else if(currentPage == 'qa2'){
+    qa2.setAttribute('style','display:none;')
+    q1.setAttribute('style','display:inline-block;')
+    updateBar(0)
 
-/**
- * for google translate 
- * link --  https://www.geeksforgeeks.org/add-google-translate-button-webpage/
- */
-function googleTranslateElementInit() { 
-  new google.translate.TranslateElement(
-      {pageLanguage: 'en'}, 
-      'google_translate_element'
-  ); 
-} 
+  }else if(currentPage == 'qb2'){
+    qb2.setAttribute('style','display:none;')
+    q1.setAttribute('style','display:inline-block;')
+    updateBar(0)
+
+  }else if(currentPage == 'q3'){
+    q3.setAttribute('style','display:none;')
+    q1.setAttribute('style','display:inline-block;')
+    updateBar(0)
+
+  }else if(currentPage == 'cta'){
+    updateBar(0)
+
+    cta.setAttribute('style','display:none;')
+    q1.setAttribute('style','display:inline-block;')
+  }
+
+}
+
+// Get the modal
+var modal = document.getElementById("myModal");
+
+// Get the button that opens the modal
+var btn = document.getElementById("start");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks on the button, open the modal
+btn.onclick = function() {
+  goToLink();
+  modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+  modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
