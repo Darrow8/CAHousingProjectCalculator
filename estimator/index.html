@@ -56,8 +56,11 @@
         </div>
         <div class="card-body">
           <h3>Select Your Language:</h3>
+          <p>Tap Skip if your Language is English</p>
           <div id="google_translate_element"></div>
           <button onclick="continueLang()" type="button" class="btn btn-primary lang-btn">Continue</button>
+          <button onclick="continueLang()" type="button" class="btn btn-primary lang-btn skip">Skip</button>
+
           <!-- <div>
             <button onclick="selectLang('eng')" type="button" class="btn btn-primary lang-btn">English</button>
             <button onclick="selectLang('chn')" type="button" class="btn btn-primary lang-btn">汉语</button>
@@ -111,32 +114,40 @@
 
           </div>
         </div>
-
+        
         <div id="selection-div">
 
           <div class="card" id="search-div">
-            <!-- From https://getbootstrap.com/docs/4.0/components/navbar/ -->
             <form autocomplete="off" class="form-inline my-2 my-lg-0">
               <div class="autocomplete">
                 <input id="map-input" class="form-control mr-sm-2 search-input" placeholder="Your Location" type="search" placeholder="Search" aria-label="Search">
               </div>
             </form>
-
           </div>
+
           <div id="map-div">
             <div id='map'></div>
           </div>
 
+
         </div>
-        <div class="card mobile-search" id="search-div">
-          <!-- From https://getbootstrap.com/docs/4.0/components/navbar/ -->
+        <div class="card" id="search-div2">
+          <form autocomplete="off" class="form-inline my-2 my-lg-0">
+            <div class="autocomplete">
+              <input id="map-input2" class="form-control mr-sm-2 search-input" placeholder="Your Location" type="search" placeholder="Search" aria-label="Search">
+            </div>
+          </form>
+
+        </div>
+
+        <!-- <div class="card mobile-search" id="search-div">
           <form autocomplete="off" class="form-inline my-2 my-lg-0">
             <div class="autocomplete">
               <input id="map-input1" class="form-control mr-sm-2 search-input" placeholder="Your Location" type="search" placeholder="Search" aria-label="Search">
             </div>
           </form>
 
-        </div>
+        </div> -->
         <button disabled="true" onclick="toCalc()" id="tocalcbtn" type="button" class="btn btn-primary loc-btn">Continue</button>
 
       </div>

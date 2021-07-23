@@ -92,7 +92,14 @@ async function continueLang(){
   initMap();
   setLayers();
   getLocation();
-  autocomplete(document.getElementById("map-input"));
+  if(mobileCheck()){
+    autocomplete(document.getElementById("map-input2"));
+
+  }else{
+    autocomplete(document.getElementById("map-input"));
+
+  }
+
   await onClickMap();
 // CALC CODE
 questionProcess()

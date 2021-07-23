@@ -45,8 +45,17 @@ async function autocomplete(inp) {
                 b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
                 /*execute a function when someone clicks on the item value (DIV element):*/
                 b.addEventListener("click", function(e) {
+                  console.log('here!')
                     /*insert the value for the autocomplete text field:*/
-                    inp.value = this.getElementsByTagName("input")[0].value;
+                    console.log(this.getElementsByTagName("input"))
+                    if(mobileCheck()){
+                      inp.value = this.getElementsByTagName("input")[0].value;
+
+                    }else{
+                      inp.value = this.getElementsByTagName("input")[1].value;
+
+                    }
+
                     //console.log('CLICKED HERE!')
                     // //console.log(inp.value)
                     fromAddrToMap(inp.value)
