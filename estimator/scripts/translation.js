@@ -87,10 +87,11 @@ let langToCode = {
 
 
 async function continueLang(){
-    setSection('location')
   // MAP CODE
+  setSection('location')
+
   initMap();
-  setLayers();
+  await setLayers();
   getLocation();
   if(mobileCheck()){
     autocomplete(document.getElementById("map-input2"));
@@ -102,6 +103,7 @@ async function continueLang(){
 
   await onClickMap();
 // CALC CODE
-questionProcess()
+  questionProcess()
+
 // updateBar(0)
 }

@@ -201,7 +201,9 @@ async function addMarker(lat,lng){
     if(mobileCheck()){
       document.getElementById("map-input2")['value'] = userLoc.common_name;
 
-    }else{
+    } else {
+      console.log('here1')
+      console.log(document.getElementById("map-input")['value'])
       document.getElementById("map-input")['value'] = userLoc.common_name;
 
     }
@@ -236,7 +238,52 @@ async function setLayers(){
   // for()
   map.on('load', async function () {
 
+
     //console.log(countyData);
+
+
+    // add infographic
+
+    // Load an image from an external URL.
+  map.loadImage(
+    '../assets/jurisdiction-info-img.png'
+    
+    ,
+    function (error, image) {
+    if (error) throw error;
+    
+    // Add the image to the map style.
+      map.addImage('juris', image);
+    
+      // Add a data source containing one point feature.
+        map.addSource('point', {
+          'type': 'geojson',
+          'data': {
+          'type': 'FeatureCollection',
+            'features': [
+            {
+            'type': 'Feature',
+            'geometry': {
+              'type': 'Point',
+              'coordinates': [ -115.224121, 39.876019]
+              }
+            }
+          ]
+        }
+      });
+    
+      // Add a layer to use the image to represent the data.
+      map.addLayer({
+      'id': 'points',
+      'type': 'symbol',
+      'source': 'point', // reference the data source
+        'layout': {
+      'icon-image': 'juris', // reference the image
+      'icon-size': 0.3
+      }
+      });
+      }
+    );
 
 
     for(let i =0; i < allCountyJSON.length; i++){
@@ -299,7 +346,9 @@ async function setLayers(){
           }
         }
         map.addLayer(layer);
-        
+      // if (i == allCountyJSON.length - 1) {
+      //     console.log('last one!')
+      //   }
   
   
     //   })
@@ -615,7 +664,7 @@ function switchSearchPosition(){
     document.getElementById('map-div').setAttribute('style','width:100%; height:40vh')
     
     document.getElementById('search-div2').setAttribute('style',
-      `  height: 50vh;
+      `  height: 10vh;
       width: 100%;
       display:inline-block;
 
@@ -624,7 +673,8 @@ function switchSearchPosition(){
 
   }else{
     // is not mobile
-    // console.log('desktop!')
+    console.log('desktop!')
+    document.getElementById('search-div').setAttribute('style','display:inline-block;')
 
   }
 }

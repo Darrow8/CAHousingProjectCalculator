@@ -252,6 +252,18 @@ const loadJSONCounty = (callback) => {
 }
 
 const init = () => {
+
+
+  // * https://webcache.googleusercontent.com/search?q=cache:jGFf2lTowOgJ:https://stackoverflow.com/questions/8866053/stop-reloading-page-with-enter-key+&cd=1&hl=en&ct=clnk&gl=us
+  document.addEventListener('keydown', function (e) {
+    // console.log('here!!')
+    if (e.key == 13) {
+      console.log('pressed!')
+      e.preventDefault();
+      //do something   
+    }
+  })
+
   //console.log('here!')
 
   loadJSONCounty((response,) => {
@@ -267,4 +279,11 @@ const init = () => {
 }
 
 init();
+
+
+// document.addEventListener('submit', function(e) {
+//   console.log('hit enter')
+//   e.preventDefault();
+// }, false);
+
 

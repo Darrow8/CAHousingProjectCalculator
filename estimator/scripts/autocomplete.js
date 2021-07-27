@@ -47,12 +47,14 @@ async function autocomplete(inp) {
                 b.addEventListener("click", function(e) {
                   console.log('here!')
                     /*insert the value for the autocomplete text field:*/
-                    console.log(this.getElementsByTagName("input"))
-                    if(mobileCheck()){
+                  console.log(this.getElementsByTagName("input"))
+                  
+                  if (mobileCheck()) {
+                      
                       inp.value = this.getElementsByTagName("input")[0].value;
 
                     }else{
-                      inp.value = this.getElementsByTagName("input")[1].value;
+                      inp.value = this.getElementsByTagName("input")[0].value;
 
                     }
 
